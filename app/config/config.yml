@@ -153,5 +153,6 @@ vich_uploader:
     db_driver: orm # or mongodb or propel or phpcr
     mappings:
         announce_image:
-            uri_prefix: /images/announce
-            upload_destination: '%kernel.project_dir%/public/images/products'
+            uri_prefix: /images/announces
+            upload_destination: '%kernel.project_dir%/web/images/announces'
+            namer: vich_uploader.namer_uniqid
