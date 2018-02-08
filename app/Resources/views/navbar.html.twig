@@ -13,39 +13,53 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li id="id_li_Accueil" class=""><a href="{{ path('homepage') }}">Accueil<span class="sr-only">(current)</span></a></li>
-                <li id="id_li_Announces" class=""><a href="{{ path('app_announces_display_announces') }}">Catalogue</a></li>
-                {#<li id="id_li_Contact" class=""><a href="{{ path('app_contact_contactafficher') }}">Contact</a></li> #}
+                <li id="homepage"><a href="{{ path('homepage') }}">Home<span class="sr-only">(current)</span></a></li>
+                <li id="announces"><a href="{{ path('announces') }}">Announces<span class="sr-only">(current)</span></a></li>
             </ul>
-            <!-- Search Module -->
+            <!-- Search Module -->  
             <form class="navbar-form navbar-left">  
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Rechercher">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group" id="adv-search">
+                                <input type="text" class="form-control" placeholder="Search announce" />
+                                <div class="input-group-btn">
+                                    <div class="btn-group" role="group">
+                                        <div class="dropdown dropdown-lg">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                <form class="form-horizontal" role="form">
+                                                    <div class="form-group">
+                                                        <label for="filter">Filter by</label>
+                                                        <select class="form-control">
+                                                            <option value="0" selected>All Announces</option>
+                                                            <option value="1">Rent</option>
+                                                            <option value="2">Selling</option>
+                                                        </select>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-default">Valider</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    {# <li><a href="{{ path('app_cart_showcart') }}"><span class="glyphicon glyphicon-shopping-cart"></span> Panier</a></li>
-                    <li><a href="{{ path('fos_user_profile_show') }}"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a></li> #}
-                    <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-log-out"></span>{{ ' Déconnexion'|trans({}, 'FOSUserBundle') }}</a></li>
+                    <li><a href="/admin" role="button" aria-haspopup="true" aria-expanded="false">Administration</a></li>
+                    <li><a href="{{ path('fos_user_registration_register') }}" role="button" aria-haspopup="true" aria-expanded="false">Register</a></li>   
+                    <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-log-out"></span>{{ ' Disconnect'|trans({}, 'FOSUserBundle') }}</a></li>
                 {% else %}
-                    <li class="dropdown" >
-                        <a href="{{ path('fos_user_registration_register') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Créer un compte<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ path('fos_user_registration_register') }}"><span class="glyphicon glyphicon-grain"></span> | En tant que producteur</a></li>
-                                <li><a href="{{ path('fos_user_registration_register') }}"><span class="glyphicon glyphicon-briefcase"></span> | En tant que consommateur professionnel</a></li>
-                                <li><a href="{{ path('fos_user_registration_register') }}"><span class="glyphicon glyphicon-user"></span> | En tant que particulier</a></li>
-                            </ul>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Connection<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('fos_user_security_login') }}">As administrator</a></li>
+                        </ul> 
                     </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Connexion<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ path('fos_user_security_login') }}">En tant que professionnel</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="{{ path('fos_user_security_login') }}">En tant que particulier</a></li>
-                    </ul> 
-                </li>
                 {% endif %}
             </ul>
         </div><!-- /.navbar-collapse -->
