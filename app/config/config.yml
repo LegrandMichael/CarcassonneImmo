@@ -7,6 +7,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    app.path.announce_pictures: /web/pictures/announces/
 
 framework:
     #esi: ~null
@@ -83,7 +84,7 @@ assetic:
     use_controller: false
     bundles:    [ ]
     java: /usr/bin/java
-    #java: C:\Program Files\Java\jdk1.8.0_65\bin\java.exe
+    #java: C:\Program Files\Java\jdk1.8.0_65\bin\Come visit those beautiful villajava.exe
     filters:
         cssrewrite: ~
         cssembed:
@@ -147,12 +148,92 @@ assetic:
 #EasyAdmin Configuration
 easy_admin:
     entities:
-        - AppBundle\Entity\Administrator
+        Administrator:
+            class: AppBundle\Entity\Administrator
+            form:
+                fields:
+                    - username
+                    - firstName
+                    - lastName
+                    - phoneNumber
+                    - email
+                    - password
+                    - enabled 
+            list:
+                #dql_filter: 'entity.id is null'
+                fields:
+                    - firstName
+                    - lastName
+                    - phoneNumber
+                    - email
+                    - enabled 
+        Announce:
+            class: AppBundle\Entity\Announce
+            form:
+                fields:
+                    - title
+                    - roomNumber
+                    - price   
+                    - { property: 'pictureFile', type: 'vich_image' }
+                    - category
+                    - administrator
+                    - customer
+            list:
+                #dql_filter: 'entity.id is null'
+                fields:
+                    - title
+                    - roomNumber
+                    - price
+                    - { property: 'picture', type: 'image', base_path: '%app.path.announce_pictures%' }
+                    - category
+                    - administrator
+                    - customer
+            show:
+                fields: 
+                    - title
+                    - roomNumber    
+                    - price
+                    - { property: 'picture', type: 'image', base_path: '%app.path.announce_pictures%' }
+                    - category
+                    - administrator
+                    - customer
+                    
+        Category:
+            class: AppBundle\Entity\Category
+            form:
+                fields:
+                    - title
+                    - children
+                    - parent
+            list:
+                fields:
+                    - title
+                    - children
+                    - parent
+        Customer:
+            class: AppBundle\Entity\Customer
+            form:
+                fields:
+                    - firstName
+                    - lastName
+                    - phoneNumber  
+            list:
+                #dql_filter: 'entity.id is null'
+                fields:
+                    - firstName
+                    - lastName
+                    - phoneNumber
+                
 #VichUploader Configuration
 vich_uploader:
     db_driver: orm # or mongodb or propel or phpcr
+    storage: file_system
     mappings:
-        announce_image:
-            uri_prefix: /images/announces
-            upload_destination: '%kernel.project_dir%/web/images/announces'
+        announce_pictures:
+            uri_prefix: '%app.path.announce_pictures%'
+            upload_destination: '%kernel.project_dir%/web/pictures/announces'
             namer: vich_uploader.namer_uniqid
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
