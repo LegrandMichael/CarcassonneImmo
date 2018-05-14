@@ -20,13 +20,13 @@ function activeTab() {
 }
 
 function array_search(what, where) {
-    var index_du_tableau = -1;
+    var tabIndex = -1;
     for (elt in where) {
-        index_du_tableau++;
+        tabIndex++;
         if (where[elt] == what) {
-            return index_du_tableau;
+            return tabIndex;
         }
     }
-    index_du_tableau = -1;
-    return index_du_tableau;
+    tabIndex = -1;
+    return tabIndex;
 }
