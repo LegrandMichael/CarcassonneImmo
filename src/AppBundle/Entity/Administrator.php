@@ -55,6 +55,11 @@ class Administrator extends BaseUser
         $this->announces = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->firstName . " " . $this->lastName;
+    }
+
 
     /**
      * Get id
