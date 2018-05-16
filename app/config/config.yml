@@ -7,7 +7,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-    app.path.announce_pictures: /web/pictures/announces/
+    app.path.announce_pictures: /pictures/announces/
 
 framework:
     #esi: ~null
